@@ -10,5 +10,8 @@
   "bugs": {
     "url": "https://github.com/flrngel/workaholic/issues"
   },
-  "homepage": "https://github.com/flrngel/workaholic"
+  "homepage": "https://github.com/flrngel/workaholic",
+  "devDependencies": {
+    "redis": "~0.9.1"
+  }
 }
