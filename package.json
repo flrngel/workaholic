@@ -1,0 +1,14 @@
+{
+  "name": "workaholic",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flrngel/workaholic"
+  },
+  "author": "flrngel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flrngel/workaholic/issues"
+  },
+  "homepage": "https://github.com/flrngel/workaholic"
+}
