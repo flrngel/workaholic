@@ -12,6 +12,7 @@
   },
   "homepage": "https://github.com/flrngel/workaholic",
   "devDependencies": {
-    "redis": "~0.9.1"
+    "redis": "~0.9.1",
+    "forever-monitor": "~1.2.3"
   }
 }
