@@ -1,0 +1,3 @@
+#!/bin/bash
+node_modules/forever/bin/forever $1 boss/boss.js -s
+node_modules/forever/bin/forever $1 front/front.js -s
