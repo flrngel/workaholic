@@ -1,12 +1,12 @@
 {
   "name": "workaholic",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/flrngel/workaholic"
   },
   "author": "flrngel",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/flrngel/workaholic/issues"
   },
@@ -18,7 +18,7 @@
     "forever": "~0.10.10"
   },
   "description": "workaholic ==========",
-  "main": "index.js",
+  "main": "./workaholic",
   "dependencies": {
     "coffee": "~0.0.1",
     "daemonize2": "~0.4.2",
@@ -29,5 +29,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+	"keywords": ["workaholic","worker"]
 }
