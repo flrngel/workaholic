@@ -6,7 +6,7 @@
     "url": "https://github.com/flrngel/workaholic"
   },
   "author": "flrngel",
-  "license": "MIT",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/flrngel/workaholic/issues"
   },
@@ -16,5 +16,18 @@
     "forever-monitor": "~1.2.3",
     "hiredis": "~0.1.15",
     "forever": "~0.10.10"
+  },
+  "description": "workaholic ==========",
+  "main": "index.js",
+  "dependencies": {
+    "coffee": "~0.0.1",
+    "daemonize2": "~0.4.2",
+    "forever": "~0.10.10",
+    "forever-monitor": "~1.2.3",
+    "hiredis": "~0.1.15",
+    "redis": "~0.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

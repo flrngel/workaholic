@@ -4,10 +4,10 @@
 		"port": "6379"
 	},
 	"front":{
-		"port": 8007
+		"port": "8007"
 	},
 	"worker":{
-		"number": 4,
-		"sleeptime": 100
+		"number": "4",
+		"sleeptime": "100"
 	}
 }
