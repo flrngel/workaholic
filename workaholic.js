@@ -1,13 +1,13 @@
-var boss=require("daemonize2").seteup({
+var boss=require("daemonize2").setup({
 	main: "boss/boss.js",
-	name: "boss",
-	pidfile: "workaholic-boss.pid"
+	name: "workaholic-boss",
+	pidfile: "tmp/workaholic-boss.pid"
 });
 
 var front=require("daemonize2").setup({
 	main: "front/front.js",
-	name: "front",
-	pidfile: "workaholic-front.pid"
+	name: "workaholic-front",
+	pidfile: "tmp/workaholic-front.pid"
 });
 
 switch( process.argv[2] ) {
