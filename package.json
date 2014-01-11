@@ -1,6 +1,6 @@
 {
   "name": "workaholic",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/flrngel/workaholic"
@@ -14,6 +14,20 @@
   "devDependencies": {
     "redis": "~0.9.1",
     "forever-monitor": "~1.2.3",
-    "hiredis": "~0.1.15"
-  }
+    "hiredis": "~0.1.15",
+    "forever": "~0.10.10"
+  },
+  "description": "workaholic",
+  "main": "./workaholic",
+  "dependencies": {
+    "coffee": "~0.0.1",
+    "forever": "~0.10.10",
+    "forever-monitor": "~1.2.3",
+    "hiredis": "~0.1.15",
+    "redis": "~0.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+	"keywords": ["workaholic","worker"]
 }

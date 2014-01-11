@@ -18,7 +18,7 @@ var worker={
 				try{
 					var data=JSON.parse(reply);
 					if( worklist[data.taskName] ){
-						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){}); 
+						var child=cp.execFile(worklist[data.taskName], data.argument,function(error,stdout,stderr){}); 
 					}
 				}catch(e){
 					console.error(e);
