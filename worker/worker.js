@@ -19,7 +19,7 @@ var worker={
 					var data=JSON.parse(reply);
 					if( worklist[data.taskName] ){
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
-							worker.sleep();
+							worker.sleep(1);
 						});
 					}
 				}catch(e){
@@ -30,8 +30,9 @@ var worker={
 			}
 		});
 	},
-	sleep: function(){
-		setTimeout(worker.process,cfg.worker.sleeptime);
+	sleep: function(_time){
+		var time=_time || cfg.worker.sleeptime || 0;
+		setTimeout(worker.process,time);
 	},
 	start: function(){
 		worker.sleep();
