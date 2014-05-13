@@ -1,5 +1,4 @@
-var cfg=require("../config.json"),
-signed;
+var cfg=require("../config.json");
 
 try{
 	worklist=require("../worklist.json");
@@ -39,4 +38,10 @@ var worker={
 	}
 };
 
-worker.start();
+if( cfg.redis.password !== undefined ){
+	redis.auth(cfg.redis.password,function(){
+		worker.start();
+	});
+}else{
+	process.nextTick(worker.start());
+}

@@ -30,4 +30,12 @@ server=net.createServer(function(c){
 			console.log(e);
 		}
 	});
-}).listen(cfg.front.port);
+});
+
+if( cfg.redis.password !== undefined ){
+	redis.auth(cfg.redis.password,function(){
+		server.listen(cfg.front.port);
+	});
+}else{
+	process.nextTick(server.listen(cfg.front.port));
+}
