@@ -18,9 +18,7 @@ var net=require('net'),
 server=net.createServer(function(c){
 	c.on('data',function(data){
 		try{
-			var str=data.toString();
-			str=str.replace(/\r\n/,'');
-			str=str.replace(/\n/,'');
+			var str=data.toString().trim();
 			p=JSON.parse(data);
 
 			if( true ){ // authentication check will be here
