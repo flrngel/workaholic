@@ -19,7 +19,7 @@ server=net.createServer(function(c){
 	c.on('data',function(data){
 		try{
 			var str=data.toString().trim();
-			p=JSON.parse(data);
+			p=JSON.parse(str);
 
 			if( true ){ // authentication check will be here
 				redis.rpush('task',JSON.stringify(p.data));
