@@ -12,10 +12,10 @@ var cp=require("child_process");
 
 var worker={
 	process: function(){
-		redis.lpop("task",function(err,reply){
-			if( reply ){
+		redis.lpop("task",function(error,result){
+			if( result ){
 				try{
-					var data=JSON.parse(reply);
+					var data=JSON.parse(result).data;
 					if( worklist[data.taskName] ){
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
 							worker.sleep(1);

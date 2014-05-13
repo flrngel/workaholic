@@ -15,7 +15,9 @@
     "redis": "~0.9.1",
     "forever-monitor": "~1.2.3",
     "hiredis": "~0.1.15",
-    "forever": "~0.10.10"
+    "forever": "~0.10.10",
+    "uuid": "^1.4.1",
+    "async": "^0.8.0"
   },
   "description": "workaholic",
   "main": "./workaholic",
@@ -29,5 +31,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-	"keywords": ["workaholic","worker"]
+  "keywords": [
+    "workaholic",
+    "worker"
+  ]
 }

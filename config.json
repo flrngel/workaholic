@@ -1,14 +1,15 @@
 {
 	"redis":{
-		"host": "localhost",
-		"port": "6379"
-		//"password": "foobar"
+		"host": "localhost"
+		,"port": 6379
+		//,"password": "foobar"
 	},
 	"front":{
-		"port": "8007"
+		"port": 8007
+		,"ticket_expire_time": 60
 	},
 	"worker":{
-		"number": "4",
-		"sleeptime": "100"
+		"number": 4
+		,"sleeptime": 100
 	}
 }
