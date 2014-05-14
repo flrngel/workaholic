@@ -46,7 +46,15 @@ app.post("/work/new",function(req,res){
 	// ticket mode
 	var callback_rpush=function(data){
 		redis.rpush('task',JSON.stringify(data),function(error,result){
-			console.log(error);
+			if( error ){
+				console.log(error);
+			}else{
+				if( data.ticket !== undefined ){
+					res.jsonp({
+						ticket: data.ticket
+					});
+				}
+			}
 			res.end();
 		});
 	};
@@ -54,8 +62,11 @@ app.post("/work/new",function(req,res){
 	if( req.body.ticketing === true ){
 		var ticket=uuid.v4();
 		async.parallel([
-			redis.set(ticket,'queue',callback),
-			redis.expire(ticket,cfg.front.ticket_expire_time,callback),
+			function(callback){
+				redis.set("workaholic:"+ticket,'queue',callback);
+		},function(callback){
+			redis.expire("workaholic:"+ticket,cfg.front.ticket_expire_time,callback);
+		}
 		],function(error,result){
 			try{
 				for(var i in error){
@@ -88,7 +99,7 @@ app.get("/work/status",function(req,res){
 		res.end();
 	}
 
-	redis.get(req.query.ticket,function(error,result){
+	redis.get("workaholic:"+req.query.ticket.toString(),function(error,result){
 		try{
 			if( error ){
 				throw error;

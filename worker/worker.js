@@ -7,37 +7,46 @@ try{
 
 var h_redis=require("redis"),
 redis=h_redis.createClient(cfg.redis.port,cfg.redis.host);
-
 var cp=require("child_process");
 
 var worker={
 	process: function(){
 		redis.lpop("task",function(error,result){
 			if( result ){
+				var data;
 				try{
-					var data=JSON.parse(result).data;
+					data=JSON.parse(result).data;
 					if( worklist[data.taskName] ){
 						if( data.ticket !== undefined ){
-							redis.set(data.ticket,"assigned");
+							redis.set("workaholic:"+data.ticket,"assigned");
 						}
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
 							if( data.ticket !== undefined ){
-								redis.set(data.ticket,"end");
+								redis.set("workaholic:"+data.ticket,"end");
 							}
-							worker.sleep(1);
+							worker.sleep(0);
 						});
+					}else{
+						worker.sleep(0);
 					}
 				}catch(e){
 					console.error(e);
 				}
 			}else{
+				if( data.ticket !== undefined ){
+					redis.set("workaholic:"+data.ticket,"error");
+				}
 				worker.sleep();
 			}
 		});
 	},
 	sleep: function(_time){
 		var time=_time || cfg.worker.sleeptime || 0;
-		setTimeout(worker.process,time);
+		if( time === 0 ){
+			process.nextTick(worker.process);
+		}else{
+			setTimeout(worker.process,time);
+		}
 	},
 	start: function(){
 		worker.sleep();
@@ -49,5 +58,5 @@ if( cfg.redis.password !== undefined ){
 		worker.start();
 	});
 }else{
-	process.nextTick(worker.start());
+	worker.start();
 }
