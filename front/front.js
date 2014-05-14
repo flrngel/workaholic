@@ -68,9 +68,9 @@ app.get("/work/status",function(req,res){
 		res.end();
 	}
 
-	redis.get(req.query.ticket,function(error,reply){
+	redis.get(req.query.ticket,function(error,result){
 		res.jsonp({
-			status: reply
+			status: result
 		});
 		res.end();
 	});
