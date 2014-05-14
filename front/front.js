@@ -17,10 +17,11 @@ redis.on("error",function(err){
 // front-desk express start
 var async=require('async');
 var uuid=require('node-uuid');
-var app=require('express')();
+var express=require('express');
+var bodyParser=require('body-parser');
+var app=express();
 
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser());
 
 // front authorization start
 app.all("*",function(req,res,next){

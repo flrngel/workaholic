@@ -16,8 +16,10 @@
     "forever-monitor": "~1.2.3",
     "hiredis": "~0.1.15",
     "forever": "~0.10.10",
-    "uuid": "^1.4.1",
-    "async": "^0.8.0"
+    "async": "^0.8.0",
+    "node-uuid": "^1.4.1",
+    "express": "^4.2.0",
+    "body-parser": "^1.2.0"
   },
   "description": "workaholic",
   "main": "./workaholic",
