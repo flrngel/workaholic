@@ -1,13 +1,13 @@
 {
 	"redis":{
-		"host": "localhost"
-		,"port": 6379
-	//,"password": "<insert_your_redis_auth_password>"
+		"host": "localhost",
+		"port": 6379,
+		"password": "<insert_your_redis_auth_password>"
 	},
 	"front":{
-		"port": 8007
-		,"ticket_expire_time": 60
-	//,"password": "<insert_your_password>"
+		"port": 8007,
+		"ticket_expire_time": 60,
+		"password": "<insert_your_password>"
 	},
 	"worker":{
 		"number": 4
