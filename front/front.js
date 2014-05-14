@@ -28,7 +28,7 @@ app.get("/info",function(req,res){
 });
 
 app.post("/work/new",function(req,res){
-	if( req.body.ticketing === true ){
+	if( ((req.body.password !== undefined)?(req.body.password === cfg.front.password):true) && req.body.ticketing === true ){
 		var ticket=uuid.v4();
 		async.parallel([
 			redis.set(ticket,'queue',callback),
