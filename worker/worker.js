@@ -11,7 +11,7 @@ var cp=require("child_process");
 
 var worker={
 	process: function(){
-		redis.lpop("task",function(error,result){
+		redis.lpop("workaholic:task",function(error,result){
 			if( result ){
 				var data;
 				try{

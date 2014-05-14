@@ -45,7 +45,7 @@ app.get("/info",function(req,res){
 app.post("/work/new",function(req,res){
 	// ticket mode
 	var callback_rpush=function(data){
-		redis.rpush('task',JSON.stringify(data),function(error,result){
+		redis.rpush('workaholic:task',JSON.stringify(data),function(error,result){
 			if( error ){
 				console.log(error);
 			}else{
