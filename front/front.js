@@ -44,6 +44,13 @@ app.get("/info",function(req,res){
 // push works start
 app.post("/work/new",function(req,res){
 	// ticket mode
+	var callback_rpush=function(data){
+		redis.rpush('task',JSON.stringify(data),function(error,result){
+			console.log(error);
+			res.end();
+		});
+	};
+
 	if( req.body.ticketing === true ){
 		var ticket=uuid.v4();
 		async.parallel([
@@ -58,7 +65,7 @@ app.post("/work/new",function(req,res){
 				}
 				callback_rpush({
 					ticket: ticket,
-					data: data
+					data: req.body.data
 				});
 			}catch(e){
 				console.log(e);
@@ -67,15 +74,9 @@ app.post("/work/new",function(req,res){
 		});
 	}else{
 		callback_rpush({
-			data: data
+			data: req.body.data
 		});
 	}
-
-	callback_rpush=function(data){
-		redis.rpush('task',JSON.stringify(data),function(error,result){
-			console.log(error);
-		});
-	};
 });
 // push works end
 
@@ -92,15 +93,12 @@ app.get("/work/status",function(req,res){
 			if( error ){
 				throw error;
 			}
-
 			res.jsonp(result);
-			res.end();
 		}catch(e){
 			res.send(500);
-			res.end();
-			
 			console.log(e);
 		}
+		res.end();
 	});
 });
 // ask work status end
