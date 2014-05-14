@@ -78,6 +78,7 @@ app.post("/work/new",function(req,res){
 });
 // push works end
 
+// ask work status start
 app.get("/work/status",function(req,res){
 	// only for ticket
 	if( req.query.ticket === undefined ){
@@ -101,6 +102,7 @@ app.get("/work/status",function(req,res){
 		}
 	});
 });
+// ask work status end
 
 // (roadmap) work delete
 // app.post("/work/delete",function(req,res){});
