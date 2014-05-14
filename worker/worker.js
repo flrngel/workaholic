@@ -17,7 +17,13 @@ var worker={
 				try{
 					var data=JSON.parse(result).data;
 					if( worklist[data.taskName] ){
+						if( data.ticket !== undefined ){
+							redis.set(data.ticket,"assigned");
+						}
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
+							if( data.ticket !== undefined ){
+								redis.set(data.ticket,"end");
+							}
 							worker.sleep(1);
 						});
 					}

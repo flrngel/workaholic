@@ -22,13 +22,28 @@ var app=require('express')();
 app.use(express.json());
 app.use(express.urlencoded());
 
+// front authorization start
+app.all("*",function(req,res,next){
+	if(!((req.body.password !== undefined)?(req.body.password === cfg.front.password):true)){
+		res.send(401);
+		res.end();
+	}else{
+		next();
+	}
+});
+// authorization end
+
+// workaholic package info start
 app.get("/info",function(req,res){
 	res.jsonp(pkg);
 	res.end();
 });
+// package info end
 
+// push works start
 app.post("/work/new",function(req,res){
-	if( ((req.body.password !== undefined)?(req.body.password === cfg.front.password):true) && req.body.ticketing === true ){
+	// ticket mode
+	if( req.body.ticketing === true ){
 		var ticket=uuid.v4();
 		async.parallel([
 			redis.set(ticket,'queue',callback),
@@ -61,27 +76,37 @@ app.post("/work/new",function(req,res){
 		});
 	};
 });
+// push works end
 
 app.get("/work/status",function(req,res){
+	// only for ticket
 	if( req.query.ticket === undefined ){
 		res.send(400);
 		res.end();
 	}
 
 	redis.get(req.query.ticket,function(error,result){
-		res.jsonp({
-			status: result
-		});
-		res.end();
+		try{
+			if( error ){
+				throw error;
+			}
+
+			res.jsonp(result);
+			res.end();
+		}catch(e){
+			res.send(500);
+			res.end();
+			
+			console.log(e);
+		}
 	});
 });
 
-// express.js
+// (roadmap) work delete
 // app.post("/work/delete",function(req,res){});
+// work delete end
 
-// express end
-
-// (auth|no-auth) server listening
+// (auth|no-auth) server listening start
 if( cfg.redis.password !== undefined ){
 	redis.auth(cfg.redis.password,function(){
 		app.listen(cfg.front.port);
@@ -89,3 +114,4 @@ if( cfg.redis.password !== undefined ){
 }else{
 	process.nextTick(app.listen(cfg.front.port));
 }
+// server listenting end
