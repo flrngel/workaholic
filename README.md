@@ -4,7 +4,9 @@ Workaholic is distributed `linux shell-command` worker using [Redis](http://redi
 
 ## Architecture
 
-- `RedisDB Database` : use for task queueing, ticket storing
+![workaholic architecture v1.0](https://raw.githubusercontent.com/flrngel/workaholic/screenshots/workaholic_architectre_v1.0.png)
+
+- [Redis](http://redis.io) : use for task queueing, ticket storing
 
 - `boss/boss.js` : fork and control workers [forever](https://github.com/nodejitsu/forever)
 
@@ -20,10 +22,50 @@ Workaholic is distributed `linux shell-command` worker using [Redis](http://redi
 
 ## worklist.json
 
-worklist.json is for to execute file([execFile](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback))
+worklist.json is for use to execute file([execFile](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback))
 
 	{
 		<task name>: {
 			'execFile' : <File to execute>
 		}
 	}
+
+## config.json
+
+config.json is for use to control Workaholic(`boss`, `worker`, `front`)
+
+	{
+		// redis configuration
+		"redis":{
+			"host": "localhost",
+			"port": 6379,
+			// authentication using redis auth command, removable
+			"password": "<insert_your_redis_auth_password>"
+		},
+		// front-desk configuration
+		"front":{
+			// listening port
+			"port": 8007,
+			// ticket expire time - work ticket(key in redis) expire(redis expire)
+			"ticket_expire_time": 60,
+			// authentication for front-desk, removable
+			"password": "<insert_your_password>"
+		},
+		// 
+		"worker":{
+			// fork number
+			"number": 4,
+			// wait time
+			"sleeptime": 100
+		}
+	}
+
+## Roadmap (todo list)
+
+- front-desk access list
+- benchmark test
+- worker status
+- thin worker
+- task tracking
+- boss controller
+- workers with different tasklist
