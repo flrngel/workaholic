@@ -1,5 +1,7 @@
 # Workaholic
 
+![Travis](https://travis-ci.org/flrngel/workaholic.svg?branch=master)
+
 Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback) worker using [Redis](http://redis.io) for work(task) assign, written with javascript([node.js](http://nodejs.org))
 
 ## Architecture
