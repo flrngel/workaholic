@@ -93,13 +93,13 @@ request
 
 response
 
-- "queue": task is in queue pool
+- `queue`: task is in queue pool
 
-- "assigned": worker assigned task
+- `assigned`: worker assigned task
 
-- "end": task was successfully ended
+- `end`: task was successfully ended
 
-- "error": task had error
+- `error`: task had error
 
 
 ## Roadmap (todo list)

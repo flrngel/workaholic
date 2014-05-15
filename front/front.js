@@ -48,10 +48,18 @@ app.post("/work/new",function(req,res){
 		redis.rpush('workaholic:task',JSON.stringify(data),function(error,result){
 			if( error ){
 				console.log(error);
+				res.json({
+					result: false
+				});
 			}else{
 				if( data.ticket !== undefined ){
 					res.json({
-						ticket: data.ticket
+						result: true
+						ticket: data.ticket,
+					});
+				}else{
+					res.json({
+						result: true
 					});
 				}
 			}
