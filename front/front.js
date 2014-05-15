@@ -36,7 +36,7 @@ app.all("*",function(req,res,next){
 
 // workaholic package info start
 app.get("/info",function(req,res){
-	res.jsonp(pkg);
+	res.json(pkg);
 	res.end();
 });
 // package info end
@@ -50,7 +50,7 @@ app.post("/work/new",function(req,res){
 				console.log(error);
 			}else{
 				if( data.ticket !== undefined ){
-					res.jsonp({
+					res.json({
 						ticket: data.ticket
 					});
 				}
@@ -104,7 +104,7 @@ app.get("/work/status",function(req,res){
 			if( error ){
 				throw error;
 			}
-			res.jsonp(result);
+			res.json(result);
 		}catch(e){
 			res.send(500);
 			console.log(e);

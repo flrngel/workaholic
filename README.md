@@ -24,6 +24,8 @@ Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#
 
 worklist.json is for use to execute file([execFile](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback))
 
+It is highly recommended *not to use* interpreter applications for security reasons, execute as your own signle script.
+
 	{
 		"<task name>": {
 			"execFile" : "<File to execute>"
@@ -60,15 +62,53 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 		}
 	}
 
-## 
+## front-desk (response type: json)
+
+#### GET /info
+
+Get Workaholic package information
+
+#### POST /work/new
+
+request
+
+	{
+		"ticketing(optional;boolean type)": true,
+		"taskName(string type)": "<task anme>",
+		"argument(array type, strings)": ["<arg1>","<arg2>..."]
+	}
+
+response
+
+	{
+		"result": (true|false),
+		"ticket(optional)": <ticket uuid>
+	}
+
+#### GET /work/status
+
+request
+
+	/work/status?ticket=<ticket uuid>
+
+response
+
+- "queue": task is in queue pool
+
+- "assigned": worker assigned task
+
+- "end": task was successfully ended
+
+- "error": task had error
+
 
 ## Roadmap (todo list)
 
-- [ ] architecture security improvement
-- [ ] front-desk access list
-- [ ] benchmark test
-- [ ] worker status
-- [ ] thin worker
-- [ ] task tracking
-- [ ] boss controller
-- [ ] workers with different tasklist
+- architecture security improvement
+- front-desk access list
+- benchmark test
+- worker status
+- thin worker
+- task tracking
+- boss controller
+- workers with different tasklist
