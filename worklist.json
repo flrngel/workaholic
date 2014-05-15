@@ -1,5 +1,5 @@
 {
-	<task name>: {
-		'execFile' : <File to execute>
+	"<task name>": {
+		"execFile" : "<File to execute>"
 	}
 }

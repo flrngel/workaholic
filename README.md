@@ -25,8 +25,8 @@ Workaholic is distributed `linux shell-command` worker using [Redis](http://redi
 worklist.json is for use to execute file([execFile](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback))
 
 	{
-		<task name>: {
-			'execFile' : <File to execute>
+		"<task name>": {
+			"execFile" : "<File to execute>"
 		}
 	}
 
