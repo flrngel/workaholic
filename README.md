@@ -62,7 +62,7 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 		}
 	}
 
-## front-desk (response type: json)
+## front/front.js (response type: json)
 
 #### GET /info
 
