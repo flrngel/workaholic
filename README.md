@@ -62,6 +62,7 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 
 ## Roadmap (todo list)
 
+- security
 - front-desk access list
 - benchmark test
 - worker status
