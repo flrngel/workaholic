@@ -6,7 +6,7 @@
 	},
 	"front":{
 		"port": 8007,
-		"ticket_expire_time": 60,
+		"ticket_expire_time": 100,
 		"password": "<insert_your_password>"
 	},
 	"worker":{
