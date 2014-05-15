@@ -14,15 +14,18 @@ var worker={
 		redis.lpop("workaholic:task",function(error,result){
 			if( result ){
 				var data;
+				var ticket;
 				try{
-					data=JSON.parse(result).data;
+					result=JSON.parse(result);
+					data=result.data;
+					ticket=result.ticket;
 					if( worklist[data.taskName] ){
-						if( data.ticket !== undefined ){
-							redis.set("workaholic:"+data.ticket,"assigned");
+						if( ticket !== undefined ){
+							redis.set("workaholic:"+ticket,"assigned");
 						}
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
-							if( data.ticket !== undefined ){
-								redis.set("workaholic:"+data.ticket,"end");
+							if( ticket !== undefined ){
+								redis.set("workaholic:"+ticket,"end");
 							}
 							worker.sleep(0);
 						});
@@ -30,8 +33,8 @@ var worker={
 						worker.sleep(0);
 					}
 				}catch(e){
-					if( data.ticket !== undefined ){
-						redis.set("workaholic:"+data.ticket,"error");
+					if( ticket !== undefined ){
+						redis.set("workaholic:"+ticket,"error");
 					}
 					console.error({
 						pid: process.pid,
