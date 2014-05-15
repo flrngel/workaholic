@@ -24,7 +24,7 @@ Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#
 
 worklist.json is for use to execute file([execFile](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback))
 
-It is highly recommended *not to use* interpreter applications for security reasons, execute as your own signle script.
+It is highly recommended **not to use** interpreter applications for security reasons, execute as your own signle script.
 
 	{
 		"<task name>": {
