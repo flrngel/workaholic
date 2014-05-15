@@ -1,6 +1,6 @@
 # Workaholic
 
-Workaholic is distributed `linux shell-command` worker using [Redis](http://redis.io) for work(task) assign, written with javascript([node.js](http://nodejs.org))
+Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback) worker using [Redis](http://redis.io) for work(task) assign, written with javascript([node.js](http://nodejs.org))
 
 ## Architecture
 
@@ -60,13 +60,15 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 		}
 	}
 
+## 
+
 ## Roadmap (todo list)
 
-- security
-- front-desk access list
-- benchmark test
-- worker status
-- thin worker
-- task tracking
-- boss controller
-- workers with different tasklist
+- [ ] architecture security improvement
+- [ ] front-desk access list
+- [ ] benchmark test
+- [ ] worker status
+- [ ] thin worker
+- [ ] task tracking
+- [ ] boss controller
+- [ ] workers with different tasklist
