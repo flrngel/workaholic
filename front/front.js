@@ -69,13 +69,11 @@ app.post("/work/new",function(req,res){
 
 	if( req.body.ticketing === true ){
 		var ticket=uuid.v4();
-		async.parallel([
-			function(callback){
-				redis.set("workaholic:"+ticket,'queue',callback);
+		async.parallel([function(callback){
+			redis.set("workaholic:"+ticket,'queue',callback);
 		},function(callback){
 			redis.expire("workaholic:"+ticket,cfg.front.ticket_expire_time,callback);
-		}
-		],function(error,result){
+		}],function(error,result){
 			try{
 				for(var i in error){
 					if( error[i] ){
