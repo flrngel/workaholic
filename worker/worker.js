@@ -19,10 +19,13 @@ var worker={
 					result=JSON.parse(result);
 					data=result.data;
 					ticket=result.ticket;
+
+					// talk about assigned
+					if( ticket !== undefined ){
+						redis.set("workaholic:"+ticket,"assigned");
+					}
+
 					if( worklist[data.taskName] ){
-						if( ticket !== undefined ){
-							redis.set("workaholic:"+ticket,"assigned");
-						}
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
 							if( ticket !== undefined ){
 								redis.set("workaholic:"+ticket,"end");
@@ -30,6 +33,9 @@ var worker={
 							worker.sleep(0);
 						});
 					}else{
+						if( ticket !== undefined ){
+							redis.set("workaholic:"+ticket,"task name not in worklist");
+						}
 						worker.sleep(0);
 					}
 				}catch(e){
