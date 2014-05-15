@@ -54,7 +54,7 @@ app.post("/work/new",function(req,res){
 			}else{
 				if( data.ticket !== undefined ){
 					res.json({
-						result: true
+						result: true,
 						ticket: data.ticket,
 					});
 				}else{
