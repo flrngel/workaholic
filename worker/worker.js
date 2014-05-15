@@ -30,12 +30,16 @@ var worker={
 						worker.sleep(0);
 					}
 				}catch(e){
-					console.error(e);
+					if( data.ticket !== undefined ){
+						redis.set("workaholic:"+data.ticket,"error");
+					}
+					console.error({
+						pid: process.pid,
+						errorData: e
+					});
+					redis.end();
 				}
 			}else{
-				if( data.ticket !== undefined ){
-					redis.set("workaholic:"+data.ticket,"error");
-				}
 				worker.sleep();
 			}
 		});
