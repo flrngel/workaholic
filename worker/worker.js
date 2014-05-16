@@ -22,25 +22,25 @@ var worker={
 
 					// talk about assigned
 					if( ticket !== undefined ){
-						redis.set("workaholic:"+ticket,"assigned");
+						redis.set("workaholic:ticket:"+ticket,"assigned");
 					}
 
 					if( worklist[data.taskName] ){
 						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
 							if( ticket !== undefined ){
-								redis.set("workaholic:"+ticket,"end");
+								redis.set("workaholic:ticket:"+ticket,"end");
 							}
 							worker.sleep(0);
 						});
 					}else{
 						if( ticket !== undefined ){
-							redis.set("workaholic:"+ticket,"task name not in worklist");
+							redis.set("workaholic:ticket:"+ticket,"task name not in worklist");
 						}
 						worker.sleep(0);
 					}
 				}catch(e){
 					if( ticket !== undefined ){
-						redis.set("workaholic:"+ticket,"error");
+						redis.set("workaholic:ticket:"+ticket,"error");
 					}
 					console.error({
 						pid: process.pid,
