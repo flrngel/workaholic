@@ -46,7 +46,7 @@ app.get("/info",function(req,res){
 app.post("/work/new",function(req,res){
 	// ticket mode
 	var callback_rpush=function(data){
-		redis.rpush('workaholic:task',JSON.stringify(data),function(error,result){
+		redis.rpush('workaholic:task:'+data.taskName,JSON.stringify(data),function(error,result){
 			if( error ){
 				console.log(error);
 				res.json({
@@ -56,7 +56,7 @@ app.post("/work/new",function(req,res){
 				if( data.ticket !== undefined ){
 					res.json({
 						result: true,
-						ticket: data.ticket,
+						ticket: data.ticket
 					});
 				}else{
 					res.json({
