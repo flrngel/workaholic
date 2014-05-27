@@ -25,7 +25,8 @@ app.use(bodyParser());
 
 // front authorization start
 app.all("*",function(req,res,next){
-	if(!((req.body.password !== undefined)?(req.body.password === cfg.front.password):true)){
+	var with_password=req.body.password?req.body.password:req.query.password;
+	if(!((cfg.front.password !== undefined)?(cfg.front.password === with_password):true)){
 		res.send(401);
 		res.end();
 	}else{
