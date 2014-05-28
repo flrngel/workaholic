@@ -130,6 +130,8 @@ if( cfg.redis.password !== undefined ){
 		app.listen(cfg.front.port);
 	});
 }else{
-	process.nextTick(app.listen(cfg.front.port));
+	process.nextTick(function(){
+		app.listen(cfg.front.port);
+	});
 }
 // server listenting end

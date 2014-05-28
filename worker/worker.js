@@ -71,5 +71,7 @@ if( cfg.redis.password !== undefined ){
 		worker.start();
 	});
 }else{
-	process.nextTick(worker.start());
+	process.nextTick(function(){
+		worker.start();
+	});
 }
