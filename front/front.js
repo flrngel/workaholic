@@ -26,7 +26,7 @@ app.use(bodyParser());
 // front authorization start
 app.all("*",function(req,res,next){
 	var with_password=req.body.password?req.body.password:req.query.password;
-	if(!((cfg.front.password !== undefined)?(cfg.front.password === with_password):true)){
+	if(!((cfg.front.password !== undefined || with_password !== undefined)?(cfg.front.password === with_password):true)){
 		res.send(401);
 		res.end();
 	}else{
@@ -82,6 +82,7 @@ app.post("/work/new",function(req,res){
 					}
 				}
 				callback_rpush({
+					taskName: req.body.data.taskName,
 					ticket: ticket,
 					data: req.body.data
 				});
@@ -92,6 +93,7 @@ app.post("/work/new",function(req,res){
 		});
 	}else{
 		callback_rpush({
+			taskName: req.body.data.taskName,
 			data: req.body.data
 		});
 	}
@@ -131,6 +133,8 @@ if( cfg.redis.password !== undefined ){
 		app.listen(cfg.front.port);
 	});
 }else{
-	process.nextTick(app.listen(cfg.front.port));
+	process.nextTick(function(){
+		app.listen(cfg.front.port)
+	});
 }
 // server listenting end
