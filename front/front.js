@@ -134,7 +134,7 @@ if( cfg.redis.password !== undefined ){
 	});
 }else{
 	process.nextTick(function(){
-		app.listen(cfg.front.port)
+		app.listen(cfg.front.port);
 	});
 }
 // server listenting end
