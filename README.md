@@ -7,6 +7,7 @@ Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#
 ## Architecture
 
 ![workaholic architecture v1.1](https://raw.githubusercontent.com/flrngel/workaholic/screenshots/workaholic_architecture_v1.1.png)
+
 ![workaholic data structure v1.2](https://raw.githubusercontent.com/flrngel/workaholic/screenshots/workaholic_data_structure_v1.2.png)
 
 - [Redis](http://redis.io) : use for task queueing, ticket storing
