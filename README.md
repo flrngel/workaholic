@@ -6,7 +6,8 @@ Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#
 
 ## Architecture
 
-![workaholic architecture v1.1](https://raw.githubusercontent.com/flrngel/workaholic/screenshots/workaholic_architectre_v1.1.png)
+![workaholic architecture v1.1](https://raw.githubusercontent.com/flrngel/workaholic/screenshots/workaholic_architecture_v1.1.png)
+![workaholic data structure v1.2](https://raw.githubusercontent.com/flrngel/workaholic/screenshots/workaholic_data_structure_v1.2.png)
 
 - [Redis](http://redis.io) : use for task queueing, ticket storing
 
@@ -76,8 +77,10 @@ request
 
 	{
 		"ticketing(optional;boolean type)": true,
-		"taskName(string type)": "<task anme>",
-		"argument(array type, strings)": ["<arg1>","<arg2>..."]
+		"data": {
+			"taskName(string type)": "<task anme>",
+			"argument(array type, strings)": ["<arg1>","<arg2>..."]
+		}
 	}
 
 response
@@ -106,11 +109,11 @@ response
 
 ## Roadmap (todo list)
 
-- architecture security improvement
+- ~~architecture security improvement~~ (status: unstable)
 - front-desk access list
 - benchmark test
 - worker status
 - thin worker
 - task tracking
 - boss controller
-- workers with different tasklist
+- ~~workers with different tasklist~~
