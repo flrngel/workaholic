@@ -9,9 +9,11 @@ var h_redis=require("redis"),
 redis=h_redis.createClient(cfg.redis.port,cfg.redis.host);
 var cp=require("child_process");
 
+var async=require("async");
+
 var worker={
-	process: function(){
-		redis.lpop("workaholic:task",function(error,result){
+	process_task: function(taskName,callback){
+		redis.lpop("workaholic:task:"+taskName,function(error,result){
 			if( result ){
 				var data;
 				var ticket;
@@ -25,29 +27,59 @@ var worker={
 						redis.set("workaholic:ticket:"+ticket,"assigned");
 					}
 
-					if( worklist[data.taskName] ){
-						var child=cp.execFile(worklist[data.taskName].execFile, data.argument,function(error,stdout,stderr){
+					if( worklist[taskName] ){
+						var child=cp.execFile(worklist[taskName].execFile, data.argument,function(error,stdout,stderr){
 							if( ticket !== undefined ){
 								redis.set("workaholic:ticket:"+ticket,"end");
 							}
-							worker.sleep(0);
+							callback(null,true);
 						});
 					}else{
-						if( ticket !== undefined ){
-							redis.set("workaholic:ticket:"+ticket,"task name not in worklist");
-						}
-						worker.sleep(0);
+						throw "taskName and data.taskName doesn't match";
 					}
 				}catch(e){
 					if( ticket !== undefined ){
 						redis.set("workaholic:ticket:"+ticket,"error");
 					}
-					console.error({
-						pid: process.pid,
-						errorData: e
-					});
-					redis.end();
+					callback(e,null);
 				}
+			}else{
+				callback(null,null);
+			}
+		});
+	},
+	process: function(){
+		var taskList=[function(callback){
+			callback(null,null,null);
+		}];
+
+		var taskPush=function(_taskName){
+			function taskPushSub(error,result,callback){
+				if( result !== undefined && result !== null ){
+					callback(error,result);
+				}
+				var callback_small=function(error,result){
+					callback(error,result,_taskName);
+				};
+				worker.process_task(_taskName,callback_small);
+			}
+			taskList.push(taskPushSub);
+		};
+
+		for(var taskName in worklist){
+			taskPush(taskName);
+		}
+		
+		async.waterfall(taskList,function(error,result){
+			if( result === true ){
+				worker.sleep(0);
+			}else if( error !== null ){
+				console.error({
+					pid: process.pid,
+					errorData: error
+				});
+				redis.end();
+				process.exit(1);
 			}else{
 				worker.sleep();
 			}
@@ -71,5 +103,7 @@ if( cfg.redis.password !== undefined ){
 		worker.start();
 	});
 }else{
-	process.nextTick(worker.start());
+	process.nextTick(function(){
+		worker.start();
+	});
 }

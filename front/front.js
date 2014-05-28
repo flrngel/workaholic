@@ -25,7 +25,8 @@ app.use(bodyParser());
 
 // front authorization start
 app.all("*",function(req,res,next){
-	if(!((req.body.password !== undefined)?(req.body.password === cfg.front.password):true)){
+	var with_password=req.body.password?req.body.password:req.query.password;
+	if(!((cfg.front.password !== undefined || with_password !== undefined)?(cfg.front.password === with_password):true)){
 		res.send(401);
 		res.end();
 	}else{
@@ -45,7 +46,7 @@ app.get("/info",function(req,res){
 app.post("/work/new",function(req,res){
 	// ticket mode
 	var callback_rpush=function(data){
-		redis.rpush('workaholic:task',JSON.stringify(data),function(error,result){
+		redis.rpush('workaholic:task:'+data.taskName,JSON.stringify(data),function(error,result){
 			if( error ){
 				console.log(error);
 				res.json({
@@ -55,7 +56,7 @@ app.post("/work/new",function(req,res){
 				if( data.ticket !== undefined ){
 					res.json({
 						result: true,
-						ticket: data.ticket,
+						ticket: data.ticket
 					});
 				}else{
 					res.json({
@@ -81,6 +82,7 @@ app.post("/work/new",function(req,res){
 					}
 				}
 				callback_rpush({
+					taskName: req.body.data.taskName,
 					ticket: ticket,
 					data: req.body.data
 				});
@@ -91,6 +93,7 @@ app.post("/work/new",function(req,res){
 		});
 	}else{
 		callback_rpush({
+			taskName: req.body.data.taskName,
 			data: req.body.data
 		});
 	}
@@ -130,6 +133,8 @@ if( cfg.redis.password !== undefined ){
 		app.listen(cfg.front.port);
 	});
 }else{
-	process.nextTick(app.listen(cfg.front.port));
+	process.nextTick(function(){
+		app.listen(cfg.front.port);
+	});
 }
 // server listenting end
