@@ -49,24 +49,27 @@ var worker={
 		});
 	},
 	process: function(){
-		var taskList=[];
+		var taskList=[function(callback){
+			callback(null,null,null);
+		}];
 
-		var taskPush=function(taskName){
-			taskList.push(function(error,result,taskName,callback){
+		var taskPush=function(_taskName){
+			function taskPushSub(error,result,callback){
 				if( result !== undefined && result !== null ){
-					callback(error,result,taskName);
+					callback(error,result);
 				}
 				var callback_small=function(error,result){
-					callback(error,result,taskName);
+					callback(error,result,_taskName);
 				};
-				worker.process_task(taskName,callback_small);
-			});
+				worker.process_task(_taskName,callback_small);
+			}
+			taskList.push(taskPushSub);
 		};
 
 		for(var taskName in worklist){
 			taskPush(taskName);
 		}
-
+		
 		async.waterfall(taskList,function(error,result){
 			if( result === true ){
 				worker.sleep(0);
@@ -100,5 +103,7 @@ if( cfg.redis.password !== undefined ){
 		worker.start();
 	});
 }else{
-	process.nextTick(worker.start());
+	process.nextTick(function(){
+		worker.start();
+	});
 }
