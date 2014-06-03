@@ -2,11 +2,11 @@
 	"redis":{
 		"host": "localhost",
 		"port": 6379,
+		"ticket_ttl": 100,
 		"password": "<insert_your_redis_auth_password>"
 	},
 	"front":{
 		"port": 8007,
-		"ticket_expire_time": 100,
 		"password": "<insert_your_password>"
 	},
 	"worker":{

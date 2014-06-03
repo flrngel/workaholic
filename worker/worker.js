@@ -7,6 +7,16 @@ try{
 
 var h_redis=require("redis"),
 redis=h_redis.createClient(cfg.redis.port,cfg.redis.host);
+
+// workaholic redis EXPIRE plan
+redis.set_planned=function(key,value,callback){
+	if( cfg.redis.ticket_ttl !== undefined ){
+		redis.setex(key,ttl,value,callback);
+	}else{
+		redis.set(key,value,callback);
+	}
+};
+
 var cp=require("child_process");
 
 var async=require("async");
@@ -24,13 +34,13 @@ var worker={
 
 					// talk about assigned
 					if( ticket !== undefined ){
-						redis.set("workaholic:ticket:"+ticket,"assigned");
+						redis.set_planned("workaholic:ticket:"+ticket,"assigned");
 					}
 
 					if( worklist[taskName] ){
 						var child=cp.execFile(worklist[taskName].execFile, data.argument,function(error,stdout,stderr){
 							if( ticket !== undefined ){
-								redis.set("workaholic:ticket:"+ticket,"end");
+								redis.set_planned("workaholic:ticket:"+ticket,"end");
 							}
 							callback(null,true);
 						});
@@ -39,7 +49,7 @@ var worker={
 					}
 				}catch(e){
 					if( ticket !== undefined ){
-						redis.set("workaholic:ticket:"+ticket,"error");
+						redis.set_planned("workaholic:ticket:"+ticket,"error");
 					}
 					callback(e,null);
 				}

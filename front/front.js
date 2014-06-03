@@ -73,7 +73,7 @@ app.post("/work/new",function(req,res){
 		async.parallel([function(callback){
 			redis.set("workaholic:ticket:"+ticket,'queue',callback);
 		},function(callback){
-			redis.expire("workaholic:ticket:"+ticket,cfg.front.ticket_expire_time,callback);
+			redis.expire("workaholic:ticket:"+ticket,cfg.redis.ticket_ttl,callback);
 		}],function(error,result){
 			try{
 				for(var i in error){
