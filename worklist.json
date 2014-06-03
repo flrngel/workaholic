@@ -1,5 +1,7 @@
 {
 	"<task name>": {
 		"execFile" : "<File to execute>"
+		"options" : {
+		}
 	}
 }

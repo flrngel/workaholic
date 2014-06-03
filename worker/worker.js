@@ -38,7 +38,7 @@ var worker={
 					}
 
 					if( worklist[taskName] ){
-						var child=cp.execFile(worklist[taskName].execFile, data.argument,function(error,stdout,stderr){
+						var child=cp.execFile(worklist[taskName].execFile, data.argument, worklist[taskName].options,function(error,stdout,stderr){
 							if( ticket !== undefined ){
 								redis.set_planned("workaholic:ticket:"+ticket,"end");
 							}

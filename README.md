@@ -32,7 +32,10 @@ It is highly recommended **not to use** interpreter applications for security re
 
 	{
 		"<task name>": {
-			"execFile" : "<File to execute>"
+			"execFile" : "<File to execute>",
+			"options": {
+				// see available options from http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback
+			}
 		}
 	}
 
