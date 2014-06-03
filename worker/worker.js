@@ -11,7 +11,7 @@ redis=h_redis.createClient(cfg.redis.port,cfg.redis.host);
 // workaholic redis EXPIRE plan
 redis.set_planned=function(key,value,callback){
 	if( cfg.redis.ticket_ttl !== undefined || parseInt(cfg.redis.ticket_ttl) === -1 ){
-		redis.setex(key,ttl,value,callback);
+		redis.setex(key,cfg.redis.ticket_ttl,value,callback);
 	}else{
 		redis.set(key,value,callback);
 	}
