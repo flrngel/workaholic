@@ -45,6 +45,8 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 		"redis":{
 			"host": "localhost",
 			"port": 6379,
+			// ticket time to live - work ticket(key in redis) expire time(redis expire). -1 to permanent
+			"ticket_ttl": 60,
 			// authentication using redis auth command, removable
 			"password": "<insert_your_redis_auth_password>"
 		},
@@ -52,14 +54,12 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 		"front":{
 			// listening port
 			"port": 8007,
-			// ticket expire time - work ticket(key in redis) expire(redis expire)
-			"ticket_expire_time": 60,
 			// authentication for front-desk, removable
 			"password": "<insert_your_password>"
 		},
-		// 
+		// worker configuration
 		"worker":{
-			// fork number
+			// number of workers
 			"number": 4,
 			// wait time
 			"sleeptime": 100
