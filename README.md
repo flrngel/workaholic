@@ -12,11 +12,11 @@ Workaholic is distributed [`execFile`](http://nodejs.org/api/child_process.html#
 
 - [Redis](http://redis.io) : use for task queueing, ticket storing
 
-- `boss/boss.js` : fork and control workers [forever](https://github.com/nodejitsu/forever)
+- `boss.js` : fork and control workers [forever](https://github.com/nodejitsu/forever)
 
 	- `worker/worker.js` : workers, get tasks from Redis
 
-- `front/front.js` : front-desk, registers task to Redis
+- `front.js` : front-desk, registers task to Redis
 
 ## Installation
 
@@ -69,7 +69,7 @@ config.json is for use to control Workaholic(`boss`, `worker`, `front`)
 		}
 	}
 
-## front/front.js (response type: json)
+## front.js (response type: json)
 
 #### GET /info
 
