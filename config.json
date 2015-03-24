@@ -1,16 +1,16 @@
 {
-	"redis":{
-		"host": "localhost",
-		"port": 6379,
-		"ticket_ttl": 100,
-		"password": "<insert_your_redis_auth_password>"
-	},
-	"front":{
-		"port": 8007,
-		"password": "<insert_your_password>"
-	},
-	"worker":{
-		"number": 4,
-		"sleeptime": 100
-	}
+  "redis":{
+    "host": "localhost",
+    "port": 6379,
+    "ticket_ttl": 100,
+    "password": "<insert_your_redis_auth_password>"
+  },
+  "front":{
+    "port": 8007,
+    "password": "<insert_your_password>"
+  },
+  "worker":{
+    "number": 4,
+    "sleeptime": 100
+  }
 }

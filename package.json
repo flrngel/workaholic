@@ -24,15 +24,9 @@
   },
   "description": "workaholic",
   "main": "./workaholic",
-  "dependencies": {
-    "coffee": "~0.0.1",
-    "forever": "~0.10.10",
-    "forever-monitor": "~1.2.3",
-    "hiredis": "~0.1.15",
-    "redis": "~0.9.1"
-  },
   "scripts": {
-    "test": "jshint boss/boss.js worker/worker.js front/front.js config.json worklist.json"
+    "test": "jshint boss/boss.js worker/worker.js front/front.js config.json worklist.json",
+    "start": "./workaholic start"
   },
   "keywords": [
     "workaholic",
